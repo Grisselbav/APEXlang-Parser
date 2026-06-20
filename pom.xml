@@ -1,0 +1,173 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- The Basics -->
+    <groupId>com.grisselbav</groupId>
+    <artifactId>apexlang-parser</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <antlr.version>4.13.2</antlr.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>${antlr.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!-- Build Settings -->
+    <build>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <plugins>
+            <plugin>
+                <!-- configure Java compiler -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.15.0</version>
+                <configuration>
+                    <release>11</release>
+                    <compilerArgument>-Xlint:-options</compilerArgument>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- generate Java classes based on ANTLR4 .g4 files -->
+                <!-- requires JDK 11 or newer -->
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>${antlr.version}</version>
+                <configuration>
+                    <visitor>true</visitor>
+                    <listener>true</listener>
+                    <treatWarningsAsErrors>true</treatWarningsAsErrors>
+                    <!-- enabling atn throws "Not a valid Unicode code point: 0xFFFFFFFF". -->
+                    <!-- Workaround: remove all EOF in lexer before setting enabling atn.  -->
+                    <atn>false</atn>
+                    <forceATN>false</forceATN>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- include the generated Java classes -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>addSource</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/target/generated-sources/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.8</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.12.0</version>
+                <configuration>
+                    <doclint>all,-missing</doclint>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.10.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- More Project Information -->
+    <name>apexlang-parser</name>
+    <description>Parser for APEXlang</description>
+    <url>https://github.com/Grisselbav/APEXlang-Parser</url>
+    <inceptionYear>2026</inceptionYear>
+    <organization>
+        <name>Grisselbav</name>
+        <url>https://github.com/Grisselbav</url>
+    </organization>
+    <developers>
+        <developer>
+            <email>philipp.salvisberg@gmail.com</email>
+            <name>Philipp Salvisberg</name>
+            <url>https://github.com/PhilippSalvisberg/</url>
+            <id>PhilippSalvisberg</id>
+            <roles>
+                <role>lead</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- Environment Settings -->
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/Grisselbav/Grisselbav/issues</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:git:https://github.com/Grisselbav/APEXlang-Parser</connection>
+        <tag>main</tag>
+        <url>https://github.com/Grisselbav/APEXlang-Parser</url>
+    </scm>
+</project>
