@@ -42,11 +42,9 @@ ID: ID_START ID_CONT*;
 // Strings
 /*----------------------------------------------------------------------------*/
 
-fragment STRING_CHARACTER: ~["\\\u0000-\u001F]; // not defined in apexlang.ebnf
-fragment DIGIT: [0-9];
-fragment HEX: DIGIT | [A-F] | [a-f];
-fragment SL_ESCAPE: '\\' ('"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HEX HEX HEX HEX);
-SL_STRING: '"' (STRING_CHARACTER | SL_ESCAPE)* '"';
+fragment STRING_CHARACTER: ~["]; // not defined in apexlang.ebnf
+fragment SL_ESCAPE: '\\"';
+SL_STRING: '"' (SL_ESCAPE | STRING_CHARACTER)* '"';
 fragment ML_ESCAPE: '\\```';
 ML_STRING: '```' (ML_ESCAPE | .)*? '```'; // language indicator such as sql, plsql, js is part of the string
 
