@@ -62,7 +62,7 @@ public class PrintRuleListener implements ParseTreeListener {
             sb.append(vocabulary.getSymbolicName(node.getSymbol().getType()));
             sb.append(":");
         }
-        sb.append(Utils.escapeWhitespace(Trees.getNodeText(node, parserRuleNames), false));
+        sb.append(Utils.escapeWhitespace(Trees.getNodeText(node, parserRuleNames), true));
     }
 
     /**

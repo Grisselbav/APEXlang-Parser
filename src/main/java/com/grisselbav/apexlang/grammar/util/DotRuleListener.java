@@ -71,7 +71,7 @@ public class DotRuleListener implements ParseTreeListener {
         sb.append('"');
         sb.append(" [shape=box label=");
         sb.append('"');
-        sb.append(node.getText().replace("\"","\\\"")); // human-readable representation
+        sb.append(Utils.escapeWhitespace(Trees.getNodeText(node, parserRuleNames), true).replace("\\", "\\\\").replace("\"","\\\"")); // human-readable representation
         sb.append('"');
         sb.append(" style=filled fillcolor=");
         sb.append('"');
@@ -123,7 +123,7 @@ public class DotRuleListener implements ParseTreeListener {
         sb.append('"');
         String labelName = PrintUtil.getLabelName(ctx);
         if (labelName == null) {
-            sb.append(Utils.escapeWhitespace(Trees.getNodeText(ctx, parserRuleNames), false));
+            sb.append(Utils.escapeWhitespace(Trees.getNodeText(ctx, parserRuleNames), true));
         } else {
             sb.append(labelName);
         }
