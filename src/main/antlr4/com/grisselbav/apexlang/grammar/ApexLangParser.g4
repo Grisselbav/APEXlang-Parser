@@ -26,7 +26,7 @@ options {
 /*----------------------------------------------------------------------------*/
 
 apxFile:
-    component* ws* EOF
+    component* ws? EOF
 ;
 
 /*----------------------------------------------------------------------------*/
@@ -34,11 +34,11 @@ apxFile:
 /*----------------------------------------------------------------------------*/
 
 component:
-    ws* type=ID (ws+ name=key)? body=componentBody
+    ws? type=ID (ws name=key)? body=componentBody
 ;
 
 componentBody:
-    ws* LPAR items+=componentBodyItem* ws* RPAR
+    ws? LPAR items+=componentBodyItem* ws? RPAR
 ;
 
 componentBodyItem:
@@ -48,15 +48,15 @@ componentBodyItem:
 ;
 
 group:
-    ws* name=ID body=groupBody
+    ws? name=ID body=groupBody
 ;
 
 groupBody:
-    ws* LCUB items+=componentBodyItem* ws* RCUB
+    ws? LCUB items+=componentBodyItem* ws? RCUB
 ;
 
 property:
-    NL+ ws* name=key ws* COLON ws+ pvalue=value
+    wsWithNewLine name=key ws? COLON ws pvalue=value
 ;
 
 /*----------------------------------------------------------------------------*/
@@ -95,7 +95,7 @@ propertyValueStart:
 propertyValueCont:
       propertyValueStart
     | COMMAT
-    | WS
+    | HWS
 ;
 
 propertyValue:
@@ -117,7 +117,7 @@ reference:
 ;
 
 array:
-    LSQB ws* (entries+=arrayEntry (ws+ entries+=arrayEntry)* ws*)? RSQB
+    LSQB ws? (entries+=arrayEntry (ws entries+=arrayEntry)* ws?)? RSQB
 ;
 
 arrayEntry:
@@ -132,5 +132,9 @@ arrayEntry:
 /*----------------------------------------------------------------------------*/
 
 ws:
-    (WS | NL)
+    (HWS | NL)+
+;
+
+wsWithNewLine:
+    HWS* NL (HWS | NL)*
 ;
