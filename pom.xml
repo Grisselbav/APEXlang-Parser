@@ -10,12 +10,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <antlr.version>4.13.2</antlr.version>
+        <islandsql.version>0.23.0</islandsql.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
             <version>${antlr.version}</version>
+        </dependency>
+        <!-- re-using utility classes from IslandSQL only -->
+        <dependency>
+            <groupId>ch.islandsql</groupId>
+            <artifactId>islandsql</artifactId>
+            <version>${islandsql.version}</version>
         </dependency>
     </dependencies>
 
