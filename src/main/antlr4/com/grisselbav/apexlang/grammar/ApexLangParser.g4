@@ -107,9 +107,8 @@ value:
     | groupBody
     | reference
     | array
-    | SL_STRING
     | ML_STRING
-    | propertyValue
+    | propertyValue // contains SL_STRING as propertyValueStart
 ;
 
 reference:
