@@ -27,7 +27,7 @@ and [ORDS](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
 The syntax diagrams of the APEXlang grammar are produced by [RR](https://www.bottlecaps.de/rr/ui)
 and can be found [here](https://grisselbav.github.io/APEXlang-Parser/grammar.html).
 
-[<img src="docs/APEXlang-apxFile.png" alt="APEXlang file" width="25%"/>](https://grisselbav.github.io/APEXlang-Parser/grammar.html)
+[<img src="docs/APEXlang-apxFile.png" alt="APEXlang file" width="50%"/>](https://grisselbav.github.io/APEXlang-Parser/grammar.html)
 
 ## Test Cases
 
