@@ -45,9 +45,11 @@ public class DotRuleListener implements ParseTreeListener {
     private final String NL = System.lineSeparator();
     private final StringBuilder sb = new StringBuilder();
     private final List<String> parserRuleNames;
-    private final String BG_COLOR="transparent";
-    private final String CTX_FILL_COLOR="#bfe6ff";
-    private final String TERMINAL_FILL_COLOR="#fadabd";
+    private final String BG_COLOR="#f9f9f9"; // "transparent" is also a valid BG_COLR
+    private final String CTX_FILL_COLOR="#f6d2f4";
+    private final String CTX_FONT_COLOR="#000000";
+    private final String TERMINAL_FILL_COLOR="#e5e5e5";
+    private final String TERMINAL_FONT_COLOR="#000000";
     private final String FONT_NAME="Helvetica"; // default: Times, others: Helvetica-bold, Times-bold, Times-italic
     private int level = 0;
 
@@ -76,6 +78,10 @@ public class DotRuleListener implements ParseTreeListener {
         sb.append(" style=filled fillcolor=");
         sb.append('"');
         sb.append(TERMINAL_FILL_COLOR);
+        sb.append('"');
+        sb.append(" fontcolor=");
+        sb.append('"');
+        sb.append(TERMINAL_FONT_COLOR);
         sb.append('"');
         sb.append(" fontname=");
         sb.append('"');
@@ -131,6 +137,10 @@ public class DotRuleListener implements ParseTreeListener {
         sb.append(" style=filled fillcolor=");
         sb.append('"');
         sb.append(CTX_FILL_COLOR);
+        sb.append('"');
+        sb.append(" fontcolor=");
+        sb.append('"');
+        sb.append(CTX_FONT_COLOR);
         sb.append('"');
         sb.append(" fontname=");
         sb.append('"');
