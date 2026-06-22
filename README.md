@@ -29,6 +29,11 @@ and can be found [here](https://grisselbav.github.io/APEXlang-Parser/grammar.htm
 
 [<img src="images/APEXlang-apxFile.png" alt="APEXlang file" width="25%"/>](https://grisselbav.github.io/APEXlang-Parser/grammar.html)
 
+## Test Cases
+
+The parser is validated using a comprehensive test suite maintained in a private repository.
+As a result, the test cases are not included in this project.
+
 ## License
 
 APEXlang-Parser is licensed under the Apache License, Version 2.0. You may obtain a copy of the License
