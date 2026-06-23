@@ -47,6 +47,10 @@ componentBodyItem:
     | property
 ;
 
+/*----------------------------------------------------------------------------*/
+// group
+/*----------------------------------------------------------------------------*/
+
 group:
     ws? name=ID body=groupBody
 ;
@@ -55,8 +59,21 @@ groupBody:
     ws? LCUB items+=componentBodyItem* ws? RCUB
 ;
 
+/*----------------------------------------------------------------------------*/
+// property
+/*----------------------------------------------------------------------------*/
+
 property:
     wsWithNewLine name=key ws? COLON ws pvalue=value
+;
+
+value:
+      componentBody
+    | groupBody
+    | reference
+    | array
+    | ML_STRING
+    | propertyValue // contains SL_STRING as propertyValueStart
 ;
 
 /*----------------------------------------------------------------------------*/
@@ -100,15 +117,6 @@ propertyValueCont:
 
 propertyValue:
     propertyValueStart propertyValueCont*
-;
-
-value:
-      componentBody
-    | groupBody
-    | reference
-    | array
-    | ML_STRING
-    | propertyValue // contains SL_STRING as propertyValueStart
 ;
 
 reference:
