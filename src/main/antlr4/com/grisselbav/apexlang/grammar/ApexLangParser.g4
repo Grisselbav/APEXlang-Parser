@@ -64,7 +64,7 @@ groupBody:
 /*----------------------------------------------------------------------------*/
 
 property:
-    wsWithNewLine name=key ws? COLON ws? pvalue=value // undocumented: ws after colon is optional
+    wsWithNewLine name=key COLON ws? pvalue=value // undocumented: ws after colon is optional
 ;
 
 value:
