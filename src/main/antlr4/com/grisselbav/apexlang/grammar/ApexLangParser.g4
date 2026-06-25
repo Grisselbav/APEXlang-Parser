@@ -116,7 +116,7 @@ propertyValueStart:
 propertyValueCont:
       propertyValueStart
     | COMMAT
-    | HWS
+    | BLANK
 ;
 
 propertyValue:
@@ -151,9 +151,9 @@ arrayEntry:
 /*----------------------------------------------------------------------------*/
 
 ws:
-    (HWS | NL)+
+    (BLANK | NL)+
 ;
 
 wsWithNewLine:
-    HWS* NL (HWS | NL)*
+    BLANK* NL (BLANK | NL)*
 ;
