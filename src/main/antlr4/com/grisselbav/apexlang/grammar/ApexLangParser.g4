@@ -68,8 +68,7 @@ property:
 ;
 
 value:
-      componentBody
-    | groupBody
+      groupBody
     | reference
     | array
     | ML_STRING
