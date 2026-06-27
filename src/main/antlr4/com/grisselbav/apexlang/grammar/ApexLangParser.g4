@@ -56,7 +56,7 @@ group:
 ;
 
 groupBody:
-    ws? LCUB items+=componentBodyItem* ws? RCUB
+    ws? LCUB items+=property* ws? RCUB
 ;
 
 /*----------------------------------------------------------------------------*/
