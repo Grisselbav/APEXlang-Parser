@@ -76,53 +76,6 @@ value:
 ;
 
 /*----------------------------------------------------------------------------*/
-// key
-/*----------------------------------------------------------------------------*/
-
-keyStart:
-      ID
-    | ANY_OTHER
-;
-
-keyCont:
-      keyStart
-    | COMMAT
-    | COLON
-;
-
-key:
-      keyStart keyCont*     # unquotedKey
-    | SL_STRING             # quotedKey
-;
-
-/*----------------------------------------------------------------------------*/
-// property value
-/*----------------------------------------------------------------------------*/
-
-propertyValueStart:
-      ID
-    | LPAR
-    | RPAR
-    | ANY_OTHER
-    | COLON
-    | LCUB
-    | RCUB
-    | LSQB
-    | RSQB
-    | SL_STRING
-;
-
-propertyValueCont:
-      propertyValueStart
-    | COMMAT
-    | BLANK
-;
-
-propertyValue:
-    propertyValueStart propertyValueCont*
-;
-
-/*----------------------------------------------------------------------------*/
 // reference
 /*----------------------------------------------------------------------------*/
 
@@ -143,6 +96,53 @@ arrayEntry:
     | key           // contains SL_STRING as quotedKey
     | array
     | ML_STRING
+;
+
+/*----------------------------------------------------------------------------*/
+// key
+/*----------------------------------------------------------------------------*/
+
+key:
+      keyStart keyCont*     # unquotedKey
+    | SL_STRING             # quotedKey
+;
+
+keyStart:
+      ID
+    | ANY_OTHER
+;
+
+keyCont:
+      keyStart
+    | COMMAT
+    | COLON
+;
+
+/*----------------------------------------------------------------------------*/
+// property value
+/*----------------------------------------------------------------------------*/
+
+propertyValue:
+    propertyValueStart propertyValueCont*
+;
+
+propertyValueStart:
+      ID
+    | LPAR
+    | RPAR
+    | ANY_OTHER
+    | COLON
+    | LCUB
+    | RCUB
+    | LSQB
+    | RSQB
+    | SL_STRING
+;
+
+propertyValueCont:
+      propertyValueStart
+    | COMMAT
+    | BLANK
 ;
 
 /*----------------------------------------------------------------------------*/
