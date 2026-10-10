@@ -16,7 +16,7 @@
 
 package com.grisselbav.apexlang.grammar;
 
-import ch.islandsql.grammar.util.ParserMetrics;
+import com.grisselbav.apexlang.grammar.model.ParserMetrics;
 import com.grisselbav.apexlang.grammar.model.SyntaxErrorEntry;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStreams;
