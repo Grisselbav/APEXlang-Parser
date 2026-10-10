@@ -16,15 +16,20 @@
 
 package com.grisselbav.apexlang.grammar;
 
-import ch.islandsql.grammar.util.ParseTreeUtil;
 import ch.islandsql.grammar.util.ParserMetrics;
 import ch.islandsql.grammar.util.SyntaxErrorEntry;
 import ch.islandsql.grammar.util.SyntaxErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -152,7 +157,12 @@ public class ApexLangDocument {
      * @return List of nodes that are instances of the desired class.
      */
     public <T extends ParseTree> List<T> getAllContentsOfType(Class<T> desiredType) {
-        return ParseTreeUtil.getAllContentsOfType(apxFile, desiredType);
+        FindTypeListener<T> listener = new FindTypeListener<>(desiredType);
+        ParseTreeWalker walker = new ParseTreeWalker();
+        for (int i = 0; i < apxFile.getChildCount(); i++) {
+            walker.walk(listener, apxFile.getChild(i));
+        }
+        return listener.getResult();
     }
 
     /**
@@ -172,5 +182,49 @@ public class ApexLangDocument {
      */
     public ParserMetrics getParserMetrics() {
         return parserMetrics;
+    }
+
+    /**
+     * Listener to find all nodes of a desired type in the parse tree.
+     *
+     * @param <T> The return type of the result.
+     */
+    private static class FindTypeListener<T extends ParseTree> implements ParseTreeListener {
+        private final Class<T> desiredType;
+        private final List<T> result = new ArrayList<>();
+
+        private FindTypeListener(Class<T> desiredType) {
+            this.desiredType = desiredType;
+        }
+
+        @Override
+        public void visitTerminal(TerminalNode node) {
+            if (desiredType.isInstance(node)) {
+                result.add(desiredType.cast(node));
+            }
+        }
+
+        @Override
+        public void visitErrorNode(ErrorNode node) {
+            if (desiredType.isInstance(node)) {
+                result.add(desiredType.cast(node));
+            }
+        }
+
+        @Override
+        public void enterEveryRule(ParserRuleContext ctx) {
+            if (desiredType.isInstance(ctx)) {
+                result.add(desiredType.cast(ctx));
+            }
+        }
+
+        @Override
+        public void exitEveryRule(ParserRuleContext ctx) {
+            // empty implementation
+        }
+
+        private List<T> getResult() {
+            return result;
+        }
     }
 }
