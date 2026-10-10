@@ -283,9 +283,9 @@ public class PrintUtil {
             sb.append(" [shape=ellipse label=");
             sb.append('"');
             String labelName = PrintUtil.getLabelName(ctx);
-            if (labelName == null) {
-                sb.append(Utils.escapeWhitespace(Trees.getNodeText(ctx, parserRuleNames), true));
-            } else {
+            sb.append(Utils.escapeWhitespace(Trees.getNodeText(ctx, parserRuleNames), false));
+            if (labelName != null) {
+                sb.append(":\\n");
                 sb.append(labelName);
             }
             sb.append('"');
