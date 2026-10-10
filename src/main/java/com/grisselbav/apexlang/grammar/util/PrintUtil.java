@@ -16,7 +16,6 @@
 
 package com.grisselbav.apexlang.grammar.util;
 
-import ch.islandsql.grammar.util.ParseTreeUtil;
 import com.grisselbav.apexlang.grammar.ApexLangParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Vocabulary;
@@ -42,7 +41,7 @@ public class PrintUtil {
      * rule class (not ParserRuleContext) is created.
      *
      * @param ctx ParserRuleContext to get the alternative label name from.
-     * @return Returns the label name or null, if no label is defined.
+     * @return Returns the label name or {@code null}, if no label is defined.
      */
     public static String getLabelName(ParserRuleContext ctx) {
         if (ctx.getClass().getSuperclass().getSimpleName().equals("ApexLangParserRuleContext")) {
@@ -55,10 +54,10 @@ public class PrintUtil {
     }
 
     /**
-     * Produces a hierarchical parse tree as string.
+     * Produces a hierarchical parse tree as a string.
      *
      * @param root The start node.
-     * @return Returns a hierarchical parse tree as string.
+     * @return Returns a hierarchical parse tree as a string.
      */
     public static String printParseTree(ParseTree root) {
         PrintRuleListener listener = new PrintRuleListener();
@@ -68,10 +67,10 @@ public class PrintUtil {
     }
 
     /**
-     * Produces a parse tree as string in DOT format.
+     * Produces a parse tree as a string in DOT format.
      *
      * @param root The start node.
-     * @return Returns a parse tree as string in DOT format.
+     * @return Returns a parse tree as a string in DOT format.
      */
     public static String dotParseTree(ParseTree root) {
         DotRuleListener listener = new DotRuleListener();
@@ -137,7 +136,7 @@ public class PrintUtil {
         @Override
         public void enterEveryRule(ParserRuleContext ctx) {
             printNewLineAndIndent();
-            String labelName = ParseTreeUtil.getLabelName(ctx);
+            String labelName = getLabelName(ctx);
             if (labelName == null) {
                 sb.append(Utils.escapeWhitespace(Trees.getNodeText(ctx, parserRuleNames), false));
             } else {
@@ -177,6 +176,7 @@ public class PrintUtil {
             if (level > 0) {
                 sb.append(NL);
             }
+            //noinspection StringRepeatCanBeUsed
             for (int i=0; i<level; i++) {
                 sb.append("  ");
             }
@@ -220,6 +220,7 @@ public class PrintUtil {
          *
          * @param node TerminalNode.
          */
+        @SuppressWarnings("DuplicatedCode")
         @Override
         public void visitTerminal(TerminalNode node) {
             sb.append("  ");
@@ -264,6 +265,7 @@ public class PrintUtil {
          *
          * @param ctx ParserRuleContext.
          */
+        @SuppressWarnings("DuplicatedCode")
         @Override
         public void enterEveryRule(ParserRuleContext ctx) {
             if (level == 0) {
@@ -282,7 +284,7 @@ public class PrintUtil {
             sb.append('"');
             sb.append(" [shape=ellipse label=");
             sb.append('"');
-            String labelName = PrintUtil.getLabelName(ctx);
+            String labelName = getLabelName(ctx);
             sb.append(Utils.escapeWhitespace(Trees.getNodeText(ctx, parserRuleNames), false));
             if (labelName != null) {
                 sb.append(":\\n");
